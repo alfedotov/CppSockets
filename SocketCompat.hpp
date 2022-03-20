@@ -85,6 +85,28 @@ class Socket {
 
     public:
 
+        bool setUdpBlocking(bool is_blocking)
+        {
+            bool ret = true;
+
+#ifdef _WIN32
+            /// @note windows sockets are created in blocking mode by default
+            // currently on windows, there is no easy way to obtain the socket's current blocking mode since WSAIsBlocking was deprecated
+            u_long flags = is_blocking ? 0 : 1;
+            ret = NO_ERROR == ioctlsocket(_sock, FIONBIO, &flags);
+#else
+            const int flags = fcntl(_sock, F_GETFL, 0);
+            if ((flags & O_NONBLOCK) && !is_blocking) {
+                return ret; // already in non-blocking mode
+            }
+            if (!(flags & O_NONBLOCK) && is_blocking) {
+                return ret; // already in blocking mode
+            }
+            ret = 0 == fcntl(_sock, F_SETFL, is_blocking ? flags ^ O_NONBLOCK : flags | O_NONBLOCK);
+#endif
+            return ret;
+        }
+
         void closeConnection(void)
         {
 #ifdef _WIN32
