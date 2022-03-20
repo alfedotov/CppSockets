@@ -17,14 +17,14 @@ class UdpSocket : public Socket {
         struct sockaddr_in _si_other;
         socklen_t _slen = sizeof(_si_other);
 
-        void setupTimeout(uint32_t msec)
+    public:
+
+        void setTimeout(uint32_t msec)
         {
             if (msec > 0) {
                 Socket::setUdpTimeout(msec);
             }
         }
-
-    public:
 
         void sendData(void * buf, size_t len)
         {
@@ -32,8 +32,8 @@ class UdpSocket : public Socket {
 
         }
 
-        bool receiveData(void * buf, size_t len)
+        int receiveData(void * buf, size_t len)
         {
-            return recvfrom(_sock, (char *)buf, (int)len, 0, (struct sockaddr *) &_si_other, &_slen) == _slen;
+            return recvfrom(_sock, (char *)buf, (int)len, 0, (struct sockaddr *) &_si_other, &_slen);
         }
 };
