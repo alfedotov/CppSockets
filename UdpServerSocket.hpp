@@ -14,7 +14,7 @@ class UdpServerSocket : public UdpSocket {
 
     public:
 
-        UdpServerSocket(const short port, const uint32_t timeoutMsec=0)
+        UdpServerSocket(const uint16_t port, const uint32_t timeoutMsec=0)
         {
             // Initialize Winsock, returning on failure
             if (!initWinsock()) return;

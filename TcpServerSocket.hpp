@@ -18,8 +18,8 @@ class TcpServerSocket : public TcpSocket {
 
     public:
 
-        TcpServerSocket(const char * host, short port)
-            : TcpSocket(host, port)        
+        TcpServerSocket(const char * host, uint16_t port)
+            : TcpSocket(host, port)
         {
             // Bind socket to address
             if (bind(_sock, _addressInfo->ai_addr, (int)_addressInfo->ai_addrlen) == SOCKET_ERROR) {
