@@ -19,8 +19,8 @@ class TcpClientSocket : public TcpSocket {
 
     public:
 
-        TcpClientSocket(const char * host, const short port)
-            : TcpSocket(host, port)        
+        TcpClientSocket(const char * host, const uint16_t port)
+            : TcpSocket(host, port)
         {
         }
 
