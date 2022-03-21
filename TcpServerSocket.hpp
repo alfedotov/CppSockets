@@ -10,10 +10,6 @@
 
 #include "TcpSocket.hpp"
 
-#ifndef _WIN32
-static void closesocket(int socket) { close(socket); }
-#endif
-
 class TcpServerSocket : public TcpSocket {
 
     public:

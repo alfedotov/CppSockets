@@ -31,6 +31,10 @@ static const int SOCKET_ERROR   = -1;
 
 #include <stdio.h>
 
+#ifndef _WIN32
+static void closesocket(int socket) { close(socket); }
+#endif
+
 class Socket {
 
     protected:
