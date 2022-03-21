@@ -21,12 +21,26 @@ class TcpServerSocket : public TcpSocket {
         TcpServerSocket(const char * host, uint16_t port)
             : TcpSocket(host, port)
         {
-            // Bind socket to address
-            if (bind(_sock, _addressInfo->ai_addr, (int)_addressInfo->ai_addrlen) == SOCKET_ERROR) {
-                closesocket(_sock);
-                _sock = INVALID_SOCKET;
-                sprintf_s(_message, "bind() failed");
-                return;
+            if(_sock != INVALID_SOCKET)
+            {
+                // allow reuse
+                int option = 1;
+                setsockopt(_sock, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
+
+                // assign IP, PORT
+                struct sockaddr_in servaddr;
+            	servaddr.sin_family = AF_INET;
+            	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+            	servaddr.sin_port = htons(port);
+                // Bind socket to address
+                //if (bind(_sock, _addressInfo->ai_addr, (int)_addressInfo->ai_addrlen) == SOCKET_ERROR) {
+                // quick fix for bind failing
+                if (bind(_sock, (struct sockaddr*)&servaddr, sizeof(servaddr)) == SOCKET_ERROR) {
+                    closesocket(_sock);
+                    _sock = INVALID_SOCKET;
+                    sprintf_s(_message, "bind() failed");
+                    return;
+                }
             }
         }
 
