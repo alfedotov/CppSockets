@@ -23,7 +23,7 @@ class TcpSocket : public Socket {
 
         bool _connected;
 
-        TcpSocket(const char * host, const short port)
+        TcpSocket(const char * host, const uint16_t port)
         {
             sprintf_s(_host, "%s", host);
             sprintf_s(_port, "%d", port);
@@ -61,7 +61,7 @@ class TcpSocket : public Socket {
 
     public:
 
-        bool sendData(void *buf, size_t len)
+        bool sendData(const void *buf, size_t len)
         {
             return (size_t)send(_conn, (const char *)buf, len, 0) == len;
         }

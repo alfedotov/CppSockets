@@ -26,7 +26,7 @@ class UdpSocket : public Socket {
             }
         }
 
-        void sendData(void * buf, size_t len)
+        void sendData(const void * buf, size_t len)
         {
             sendto(_sock, (const char *)buf, (int)len, 0, (struct sockaddr *) &_si_other, (int)_slen);
 
