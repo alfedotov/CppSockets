@@ -1,5 +1,5 @@
 This repository contains header-only C++ classes and example code for using sockets on
-Linux and Windows.  The classes hide the details that you don't need to worry about
+Linux, macOS, and Windows.  The classes hide the details that you don't need to worry about
 for many applications, providing a simple API for rapid prototyping. For example:
 
 ```
@@ -13,7 +13,7 @@ for many applications, providing a simple API for rapid prototyping. For example
 
     client.receiveData(message, 100);
 ```
- 
+
 The class header code is in the <b>sockets</b> folder, which you can copy/paste
 into your own project.
 
@@ -36,6 +36,5 @@ Then open the <b>UdpClient</b> and <b>UdpServer</b> projects, and run them in Re
 % git clone https://github.com/simondlevy/CppSockets sockets
 % make
 ```
-Then you can run one of the two pairs of resulting test programs (<b>udpsever</b>/<b>udpclient</b>, 
+Then you can run one of the two pairs of resulting test programs (<b>udpsever</b>/<b>udpclient</b>,
 <b>tcpsever</b>/<b>tcpclient</b>).
-
