@@ -14,3 +14,4 @@ linux/*client
 Debug/
 windows/*/*/x64/
 windows/*/x64/
+*.DS_Store
