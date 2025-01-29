@@ -25,6 +25,7 @@ typedef int SOCKET;
 #include <netdb.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <fcntl.h>
 static const int INVALID_SOCKET = -1;
 static const int SOCKET_ERROR   = -1;
 #endif
