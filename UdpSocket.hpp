@@ -36,4 +36,22 @@ class UdpSocket : public Socket {
         {
             return recvfrom(_sock, (char *)buf, (int)len, 0, (struct sockaddr *) &_si_other, &_slen);
         }
+
+        int receiveDataFrom(void* buf, size_t len, const char* remote_host)
+        {
+            int result;
+            struct sockaddr_in _si_remote;
+
+            memset((char*)&_si_remote, 0, sizeof(_si_remote));
+            _si_remote.sin_family = AF_INET;
+            Socket::inetPton(remote_host, _si_remote);
+
+            result = recvfrom(_sock, (char*)buf, (int)len, 0, (struct sockaddr*)&_si_other, &_slen);
+
+            if (_si_other.sin_addr.S_un.S_addr != _si_remote.sin_addr.S_un.S_addr)
+                result = 0;
+
+            return result;
+        }
+
 };
