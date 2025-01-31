@@ -48,7 +48,7 @@ class UdpSocket : public Socket {
 
             result = recvfrom(_sock, (char*)buf, (int)len, 0, (struct sockaddr*)&_si_other, &_slen);
 
-            if (_si_other.sin_addr.S_un.S_addr != _si_remote.sin_addr.S_un.S_addr)
+            if (_si_other.sin_addr.s_addr != _si_remote.sin_addr.s_addr)
                 result = 0;
 
             return result;
