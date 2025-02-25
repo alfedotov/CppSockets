@@ -32,6 +32,18 @@ class UdpSocket : public Socket {
 
         }
 
+        void sendDataTo(const char* host, const uint16_t port, const void* buf, size_t len)
+        {
+            struct sockaddr_in _si;
+
+            memset((char*)&_si, 0, sizeof(_si));
+            _si.sin_family = AF_INET;
+            _si.sin_port = htons(port);
+            Socket::inetPton(host, _si);
+
+            sendto(_sock, (const char*)buf, (int)len, 0, (struct sockaddr*)&_si, (int)_slen);
+        }
+
         int receiveData(void * buf, size_t len)
         {
             return recvfrom(_sock, (char *)buf, (int)len, 0, (struct sockaddr *) &_si_other, &_slen);
